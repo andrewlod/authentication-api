@@ -4,7 +4,9 @@
   "description": "Authentication REST API created with TypeScript",
   "main": "src/server.ts",
   "scripts": {
-    "start:dev": "npx nodemon",
+    "install-db": "npx prisma generate --schema ./src/database/schemas/schema.prisma",
+    "migrate": "npx prisma migrate dev --schema ./src/database/schemas/schema.prisma",
+    "dev": "npx nodemon",
     "test": "npm test"
   },
   "repository": {
@@ -23,6 +25,8 @@
   },
   "homepage": "https://github.com/andrewlod/authentication-api#readme",
   "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.20",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "eslint": "^8.57.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
@@ -30,7 +34,13 @@
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
     "nodemon": "^3.1.0",
+    "prisma": "^5.10.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2"
   }
 }

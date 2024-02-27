@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
-      "target": "ES5",
+      "target": "ES6",
       "module": "CommonJS",
-      "strictNullChecks": true
+      "strictNullChecks": true,
+      "esModuleInterop": true
     }
 }

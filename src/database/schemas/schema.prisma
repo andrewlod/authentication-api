@@ -1,0 +1,17 @@
+model User {
+    id          Int     @id @default(autoincrement())
+    email       String  @unique
+    username    String  @unique
+    password    String
+    is_admin    Boolean
+}
+
+datasource user_db {
+    provider    = "mysql"
+    url         = env("DATABASE_URL") 
+}
+
+generator client {
+    provider    = "prisma-client-js"
+    output      = "./generated/prisma-client.js"
+}
