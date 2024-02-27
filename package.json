@@ -1,0 +1,36 @@
+{
+  "name": "authentication-api",
+  "version": "0.0.1",
+  "description": "Authentication REST API created with TypeScript",
+  "main": "src/server.ts",
+  "scripts": {
+    "start:dev": "npx nodemon",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewlod/authentication-api.git"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "TypeScript"
+  ],
+  "author": "Andre Wlodkovski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrewlod/authentication-api/issues"
+  },
+  "homepage": "https://github.com/andrewlod/authentication-api#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
