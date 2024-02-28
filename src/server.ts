@@ -1,6 +1,7 @@
-import express from 'express'
 import dotenv from 'dotenv'
 dotenv.config()
+import express from 'express'
+import { Logger } from './logging'
 
 const { SV_PORT } = process.env
 
@@ -11,5 +12,5 @@ app.get('/hello', async (_req, res) => {
 })
 
 app.listen(SV_PORT, () => {
-  console.log(`Server running on port ${SV_PORT}`)
+  Logger.info(`Server running on port ${SV_PORT}`)
 })
