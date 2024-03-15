@@ -1,8 +1,7 @@
 model User {
     id          Int     @id @default(autoincrement())
-    email       String  @unique
-    username    String  @unique
-    password    String
+    email       String  @user_db.VarChar(255)   @unique
+    password    String  @user_db.VarChar(128)
     is_admin    Boolean
 }
 
