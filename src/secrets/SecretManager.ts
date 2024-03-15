@@ -1,5 +1,6 @@
 import type { SecretsConnector } from '../connectors'
 import { SecretsConnectorAWS } from '../connectors'
+import { SecretNotFoundError } from './SecretError'
 
 const { NODE_ENV } = process.env
 
@@ -42,6 +43,16 @@ class SecretManager {
 
   getSecrets (): Map<string, string | undefined> {
     return this.secrets
+  }
+
+  getSecret (key: string): string {
+    const value = this.secrets.get(key)
+
+    if (value === undefined) {
+      throw new SecretNotFoundError(key)
+    }
+
+    return value
   }
 }
 
