@@ -2,6 +2,10 @@ import type { Request, Response } from 'express'
 import { daoUser } from '../database'
 import type { RegularUserCreateInput } from '../database'
 import { StatusCodes } from 'http-status-codes'
+import bcrypt from 'bcrypt'
+import { SecretManager } from '../secrets'
+
+const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
 
 class AccountController {
   async register (req: Request<any, any, RegularUserCreateInput>, res: Response): Promise<void> {
@@ -16,9 +20,11 @@ class AccountController {
       return
     }
 
+    const passwordHash = await bcrypt.hash(password, PASSWORD_SALT)
+
     await daoUser.create({
       email,
-      password,
+      password: passwordHash,
       is_admin: false
     })
 
