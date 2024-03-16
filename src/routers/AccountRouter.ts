@@ -5,6 +5,7 @@ import { AccountController } from '../controllers'
 
 const router = Router()
 
-router.post('/', ValidateAccountCreation, AccountController.register as RequestHandler)
+router.post('/register', ValidateAccountCreation, AccountController.register as RequestHandler)
+router.post('/login', ValidateAccountCreation, AccountController.login as RequestHandler)
 
 export default router
