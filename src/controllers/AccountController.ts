@@ -61,7 +61,6 @@ export async function login (req: Request<any, any, RegularUserCreateInput>, res
     timestamp: new Date()
   })
 
-  // TODO: Create JWT token
   res.status(StatusCodes.OK).json({
     success: true,
     token
