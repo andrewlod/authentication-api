@@ -19,13 +19,6 @@ export async function updateUser (req: Request<any, any, UserUpdateInput>, res: 
 
   const updateParams: UserUpdateInput = {}
   if (email !== undefined) {
-    if (await daoUser.findByEmail(email) !== null) {
-      res.status(StatusCodes.BAD_REQUEST).json({
-        success: false,
-        reason: 'This email address is already being used!'
-      })
-      return
-    }
     updateParams.email = email
   }
 
@@ -43,7 +36,7 @@ export async function deleteUser (_req: Request, res: AuthResponse): Promise<voi
   const { id } = res.locals.user
 
   await daoUser.delete(id)
-  res.status(StatusCodes.OK).json({
+  res.status(StatusCodes.OK).clearCookie(JWT_COOKIE_KEY).json({
     success: true
   })
 }
