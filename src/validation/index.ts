@@ -1,1 +1,2 @@
-export { ValidateAccountCreation } from './AccountValidation'
+export * as AccountValidation from './AccountValidation'
+export * as UserValidation from './UserValidation'
