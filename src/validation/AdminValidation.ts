@@ -1,7 +1,7 @@
-import { body } from 'express-validator'
+import { body, param } from 'express-validator'
 import { checkBodyHasAtLeastOne, checkValidationResult } from './ResultChecker'
 
-export const ValidateUserUpdate = [
+export const ValidateAdminUserUpdate = [
   body('email').isEmail().isLength({
     min: 5,
     max: 255
@@ -10,6 +10,8 @@ export const ValidateUserUpdate = [
     min: 6,
     max: 32
   }).optional(),
-  checkBodyHasAtLeastOne(['email', 'password']),
+  body('isAdmin').isBoolean().optional(),
+  param('id').isInt().optional(),
+  checkBodyHasAtLeastOne(['email', 'password', 'isAdmin']),
   checkValidationResult
 ]

@@ -7,6 +7,8 @@ import { SecretManager } from '../secrets'
 import { JWTManager } from '../auth'
 
 const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
+const JWT_EXPIRE_MINUTES = parseInt(SecretManager.getSecret('JWT_EXPIRE_MINUTES'))
+const JWT_COOKIE_KEY = SecretManager.getSecret('JWT_COOKIE_KEY')
 
 export async function register (req: Request<any, any, RegularUserCreateInput>, res: Response): Promise<void> {
   const { email, password } = req.body
@@ -54,13 +56,15 @@ export async function login (req: Request<any, any, RegularUserCreateInput>, res
     return
   }
 
-  const token = JWTManager.sign({
+  const token = 'Bearer ' + JWTManager.sign({
     id: user.id,
-    email: user.email,
-    isAdmin: user.is_admin,
     timestamp: new Date()
   })
 
+  res.cookie(JWT_COOKIE_KEY, token, {
+    maxAge: 1000 * 60 * JWT_EXPIRE_MINUTES,
+    httpOnly: true
+  })
   res.status(StatusCodes.OK).json({
     success: true,
     token
