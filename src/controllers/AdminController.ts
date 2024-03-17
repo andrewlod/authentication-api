@@ -12,11 +12,11 @@ type AdminUserUpdateInput = Omit<UserUpdateInput, 'is_admin'> & {
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type AdminUserUpdateParams = {
+type AdminUserIdParams = {
   id: string
 }
 
-export async function adminUpdateUser (req: Request<AdminUserUpdateParams, any, AdminUserUpdateInput>, res: AuthResponse): Promise<void> {
+export async function adminUpdateUser (req: Request<AdminUserIdParams, any, AdminUserUpdateInput>, res: AuthResponse): Promise<void> {
   const id = parseInt(req.params.id)
 
   const {
@@ -44,6 +44,26 @@ export async function adminUpdateUser (req: Request<AdminUserUpdateParams, any, 
   }
 
   await daoUser.update(user.id, updateParams)
+
+  res.status(200).json({
+    success: true
+  })
+}
+
+export async function adminDeleteUser (req: Request<AdminUserIdParams, any, AdminUserUpdateInput>, res: AuthResponse): Promise<void> {
+  const id = parseInt(req.params.id)
+
+  const user = await daoUser.findById(id)
+
+  if (user === null) {
+    res.status(StatusCodes.NOT_FOUND).json({
+      success: false,
+      reason: 'User not found!'
+    })
+    return
+  }
+
+  await daoUser.delete(user.id)
 
   res.status(200).json({
     success: true
