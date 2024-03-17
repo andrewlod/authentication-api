@@ -12,11 +12,12 @@ export class DaoUser {
     this.user = prisma.user
   }
 
-  async findById (id: number): Promise<UserType | null> {
+  async findById (id: number, selectOptions: Prisma.UserSelect | undefined = undefined): Promise<UserType | null> {
     return await this.user.findUnique({
       where: {
         id
-      }
+      },
+      select: selectOptions
     })
   }
 

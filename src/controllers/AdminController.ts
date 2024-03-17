@@ -1,6 +1,6 @@
-import type { Request } from 'express'
+import type { Request, Response } from 'express'
 import type { AuthResponse } from '../auth/AuthTypes'
-import { daoUser, type UserUpdateInput } from '../database'
+import { daoUser, type UserType, type UserUpdateInput } from '../database'
 import { SecretManager } from '../secrets'
 import { StatusCodes } from 'http-status-codes'
 import bcrypt from 'bcrypt'
@@ -12,11 +12,67 @@ type AdminUserUpdateInput = Omit<UserUpdateInput, 'is_admin'> & {
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type AdminUserUpdateParams = {
+type AdminUserIdParams = {
   id: string
 }
 
-export async function adminUpdateUser (req: Request<AdminUserUpdateParams, any, AdminUserUpdateInput>, res: AuthResponse): Promise<void> {
+export async function getAllUsers (_req: Request, res: Response): Promise<void> {
+  let users: UserType[]
+  try {
+    users = await daoUser.findMany({
+      select: {
+        id: true,
+        email: true,
+        is_admin: true
+      }
+    })
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      reason: 'Could not fetch all users!'
+    })
+    return
+  }
+
+  res.status(200).json({
+    success: true,
+    users
+  })
+}
+
+export async function getUser (req: Request<AdminUserIdParams, any, any>, res: Response): Promise<void> {
+  const id = parseInt(req.params.id)
+
+  let user: UserType | null
+  try {
+    user = await daoUser.findById(id, {
+      id: true,
+      email: true,
+      is_admin: true
+    })
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      reason: 'Could not fetch all users!'
+    })
+    return
+  }
+
+  if (user === null) {
+    res.status(StatusCodes.NOT_FOUND).json({
+      success: false,
+      reason: 'User not found!'
+    })
+    return
+  }
+
+  res.status(200).json({
+    success: true,
+    user
+  })
+}
+
+export async function adminUpdateUser (req: Request<AdminUserIdParams, any, AdminUserUpdateInput>, res: AuthResponse): Promise<void> {
   const id = parseInt(req.params.id)
 
   const {
@@ -44,6 +100,26 @@ export async function adminUpdateUser (req: Request<AdminUserUpdateParams, any, 
   }
 
   await daoUser.update(user.id, updateParams)
+
+  res.status(200).json({
+    success: true
+  })
+}
+
+export async function adminDeleteUser (req: Request<AdminUserIdParams, any, AdminUserUpdateInput>, res: AuthResponse): Promise<void> {
+  const id = parseInt(req.params.id)
+
+  const user = await daoUser.findById(id)
+
+  if (user === null) {
+    res.status(StatusCodes.NOT_FOUND).json({
+      success: false,
+      reason: 'User not found!'
+    })
+    return
+  }
+
+  await daoUser.delete(user.id)
 
   res.status(200).json({
     success: true
