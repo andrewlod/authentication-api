@@ -55,9 +55,9 @@ export async function login (req: Request<any, any, RegularUserCreateInput>, res
   }
 
   const token = JWTManager.sign({
-    _id: user.id,
+    id: user.id,
     email: user.email,
-    is_admin: user.is_admin,
+    isAdmin: user.is_admin,
     timestamp: new Date()
   })
 
