@@ -37,3 +37,12 @@ export async function updateUser (req: Request<any, any, UserUpdateInput>, res: 
     success: true
   })
 }
+
+export async function deleteUser (_req: Request, res: AuthResponse): Promise<void> {
+  const { id } = res.locals.user
+
+  await daoUser.delete(id)
+  res.status(StatusCodes.OK).json({
+    success: true
+  })
+}

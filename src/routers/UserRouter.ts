@@ -7,4 +7,6 @@ const router = Router()
 
 router.put('/', UserValidation.ValidateUserUpdate, UserController.updateUser as RequestHandler)
 
+router.delete('/', UserController.deleteUser as RequestHandler)
+
 export default router
