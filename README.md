@@ -104,6 +104,7 @@ This section describes features that are either work-in-progress or will be impl
 |---------|--------|
 | Unit Tests | ❌ |
 | Centralize types/interfaces | 🚧 |
+| Track JWT expiry status when user logs off | ❌ |
 | Turn DATABASE_URL into secret | ❌ |
 | Swagger Documentation | ❌ |
 | Production Build Scripts | ❌ |
