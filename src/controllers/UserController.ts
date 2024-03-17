@@ -6,6 +6,7 @@ import { StatusCodes } from 'http-status-codes'
 import type { AuthResponse } from '../auth/AuthTypes'
 
 const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
+const JWT_COOKIE_KEY = SecretManager.getSecret('JWT_COOKIE_KEY')
 
 interface UserUpdateInput {
   email?: string
@@ -43,6 +44,12 @@ export async function deleteUser (_req: Request, res: AuthResponse): Promise<voi
 
   await daoUser.delete(id)
   res.status(StatusCodes.OK).json({
+    success: true
+  })
+}
+
+export async function logout (req: Request, res: AuthResponse): Promise<void> {
+  res.status(200).clearCookie(JWT_COOKIE_KEY).json({
     success: true
   })
 }

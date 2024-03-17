@@ -9,4 +9,6 @@ router.put('/', UserValidation.ValidateUserUpdate, UserController.updateUser as 
 
 router.delete('/', UserController.deleteUser as RequestHandler)
 
+router.get('/logout', UserController.logout as RequestHandler)
+
 export default router
