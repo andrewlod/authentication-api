@@ -7,6 +7,7 @@ import { AdminValidation } from '../validation'
 const router = Router()
 
 router.get('/users', AdminController.getAllUsers as RequestHandler)
+router.get('/users/:id', AdminValidation.ValidateAdminUserGet, AdminController.getUser as RequestHandler)
 
 router.put('/users/:id', AdminValidation.ValidateAdminUserUpdate, DatabaseMiddlewares.checkEmailExists('email'), AdminController.adminUpdateUser as RequestHandler)
 

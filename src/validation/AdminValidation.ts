@@ -15,3 +15,8 @@ export const ValidateAdminUserUpdate = [
   checkBodyHasAtLeastOne(['email', 'password', 'isAdmin']),
   checkValidationResult
 ]
+
+export const ValidateAdminUserGet = [
+  param('id').isInt().optional(),
+  checkValidationResult
+]

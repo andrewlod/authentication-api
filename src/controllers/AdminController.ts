@@ -16,7 +16,7 @@ type AdminUserIdParams = {
   id: string
 }
 
-export async function getAllUsers (req: Request, res: Response): Promise<void> {
+export async function getAllUsers (_req: Request, res: Response): Promise<void> {
   let users: UserType[]
   try {
     users = await daoUser.findMany({
@@ -37,6 +37,38 @@ export async function getAllUsers (req: Request, res: Response): Promise<void> {
   res.status(200).json({
     success: true,
     users
+  })
+}
+
+export async function getUser (req: Request<AdminUserIdParams, any, any>, res: Response): Promise<void> {
+  const id = parseInt(req.params.id)
+
+  let user: UserType | null
+  try {
+    user = await daoUser.findById(id, {
+      id: true,
+      email: true,
+      is_admin: true
+    })
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      reason: 'Could not fetch all users!'
+    })
+    return
+  }
+
+  if (user === null) {
+    res.status(StatusCodes.NOT_FOUND).json({
+      success: false,
+      reason: 'User not found!'
+    })
+    return
+  }
+
+  res.status(200).json({
+    success: true,
+    user
   })
 }
 
