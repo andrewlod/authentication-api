@@ -1,7 +1,7 @@
 import express from 'express'
 import type { RequestHandler } from 'express'
 import cors from 'cors'
-import { AccountRouter, UserRouter } from '../routers'
+import { AccountRouter, AdminRouter, UserRouter } from '../routers'
 import { AccessController } from '../controllers'
 import cookieParser from 'cookie-parser'
 
@@ -14,7 +14,10 @@ app.use('/api/v1/account', AccountRouter)
 
 // Authenticated routes
 app.use(AccessController.isAuthenticated as RequestHandler)
-
 app.use('/api/v1/users', UserRouter)
+
+// Admin routes
+app.use(AccessController.isAdmin as RequestHandler)
+app.use('/api/v1/admin', AdminRouter)
 
 export default app
