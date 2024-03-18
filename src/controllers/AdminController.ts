@@ -4,6 +4,7 @@ import { daoUser, type UserType, type UserUpdateInput } from '../database'
 import { SecretManager } from '../secrets'
 import { StatusCodes } from 'http-status-codes'
 import bcrypt from 'bcrypt'
+import { sendDataResponse, sendResponse } from './ResponseFactory'
 
 const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
 
@@ -34,9 +35,12 @@ export async function getAllUsers (_req: Request, res: Response): Promise<void> 
     return
   }
 
-  res.status(200).json({
-    success: true,
-    users
+  sendDataResponse(res, {
+    status: StatusCodes.OK,
+    message: 'Users successfully fetched.',
+    data: {
+      users
+    }
   })
 }
 
@@ -66,9 +70,12 @@ export async function getUser (req: Request<AdminUserIdParams, any, any>, res: R
     return
   }
 
-  res.status(200).json({
-    success: true,
-    user
+  sendDataResponse(res, {
+    status: StatusCodes.OK,
+    message: 'User successfully fetched.',
+    data: {
+      user
+    }
   })
 }
 
@@ -101,8 +108,9 @@ export async function adminUpdateUser (req: Request<AdminUserIdParams, any, Admi
 
   await daoUser.update(user.id, updateParams)
 
-  res.status(200).json({
-    success: true
+  sendResponse(res, {
+    status: StatusCodes.OK,
+    message: 'User successfully updated.'
   })
 }
 
@@ -121,7 +129,8 @@ export async function adminDeleteUser (req: Request<AdminUserIdParams, any, Admi
 
   await daoUser.delete(user.id)
 
-  res.status(200).json({
-    success: true
+  sendResponse(res, {
+    status: StatusCodes.OK,
+    message: 'User successfully deleted.'
   })
 }

@@ -5,6 +5,7 @@ import { daoUser } from '../database'
 import { StatusCodes } from 'http-status-codes'
 import { SecretManager } from '../secrets'
 import { JWTManager } from '../auth'
+import { sendDataResponse, sendResponse } from './ResponseFactory'
 
 const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
 const JWT_EXPIRE_MINUTES = parseInt(SecretManager.getSecret('JWT_EXPIRE_MINUTES'))
@@ -30,8 +31,9 @@ export async function register (req: Request<any, any, RegularUserCreateInput>, 
     is_admin: false
   })
 
-  res.status(StatusCodes.OK).json({
-    success: true
+  sendResponse(res, {
+    status: StatusCodes.OK,
+    message: 'Registration successful!'
   })
 }
 
@@ -65,8 +67,12 @@ export async function login (req: Request<any, any, RegularUserCreateInput>, res
     maxAge: 1000 * 60 * JWT_EXPIRE_MINUTES,
     httpOnly: true
   })
-  res.status(StatusCodes.OK).json({
-    success: true,
-    token
+
+  sendDataResponse(res, {
+    status: StatusCodes.OK,
+    message: 'Authentication successful!',
+    data: {
+      token
+    }
   })
 }
