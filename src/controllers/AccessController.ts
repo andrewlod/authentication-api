@@ -79,7 +79,7 @@ export async function isAdmin (_req: Request, res: AuthResponse, next: NextFunct
   }
 
   if (!user.is_admin) {
-    res.status(StatusCodes.UNAUTHORIZED).json({
+    res.status(StatusCodes.FORBIDDEN).json({
       success: false,
       reason: 'User is not an admin!'
     })
