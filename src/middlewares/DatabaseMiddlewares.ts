@@ -1,6 +1,7 @@
 import type { NextFunction, Request, RequestHandler, Response } from 'express'
 import { daoUser } from '../database'
-import { StatusCodes } from 'http-status-codes'
+import { ApplicationErrorConflict } from '../errors/ApplicationError'
+import { ErrorConstants } from '../errors'
 
 export function checkEmailExists (emailKey: string): RequestHandler {
   type EmailCheckInput = {
@@ -11,10 +12,10 @@ export function checkEmailExists (emailKey: string): RequestHandler {
     const email = req.body[emailKey]
     if (email !== undefined) {
       if (await daoUser.findByEmail(email) !== null) {
-        res.status(StatusCodes.BAD_REQUEST).json({
-          success: false,
-          reason: 'This email address is already being used!'
-        })
+        next(new ApplicationErrorConflict({
+          code: ErrorConstants.USER_EXISTS,
+          details: `Email address ${email} is already registered!`
+        }, 'Email already registered.'))
         return
       }
     }
