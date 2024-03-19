@@ -11,5 +11,14 @@
     },
     "rules": {
         "import/first": "off"
-    }
+    },
+    "overrides": [
+        {
+            "files": ["tests/**/*"],
+            "plugins": ["jest"],
+            "env": {
+              "jest": true
+            }
+        }
+    ]
 }
