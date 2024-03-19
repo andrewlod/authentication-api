@@ -103,8 +103,6 @@ This section describes features that are either work-in-progress or will be impl
 | Feature | Status |
 |---------|--------|
 | Unit Tests | ❌ |
-| Request Error Handling | ❌ |
-| Response Object Factory | ❌ |
 | Centralize types/interfaces | 🚧 |
 | Track JWT expiry status when user logs off | ❌ |
 | Turn DATABASE_URL into secret | ❌ |

@@ -1,4 +1,4 @@
-import type { Request } from 'express'
+import type { NextFunction, Request } from 'express'
 import { daoUser } from '../database'
 import bcrypt from 'bcrypt'
 import { SecretManager } from '../secrets'
@@ -14,7 +14,7 @@ interface UserUpdateInput {
   password?: string
 }
 
-export async function updateUser (req: Request<any, any, UserUpdateInput>, res: AuthResponse): Promise<void> {
+export async function updateUser (req: Request<any, any, UserUpdateInput>, res: AuthResponse, next: NextFunction): Promise<void> {
   const { email, password } = req.body
   const { id } = res.locals.user
 
@@ -23,29 +23,37 @@ export async function updateUser (req: Request<any, any, UserUpdateInput>, res: 
     updateParams.email = email
   }
 
-  if (password !== undefined) {
-    updateParams.password = await bcrypt.hash(password, PASSWORD_SALT)
+  try {
+    if (password !== undefined) {
+      updateParams.password = await bcrypt.hash(password, PASSWORD_SALT)
+    }
+    console.log(id, updateParams)
+    await daoUser.update(id, updateParams)
+
+    sendResponse(res, {
+      status: StatusCodes.OK,
+      message: 'Your user has been successfully updated!'
+    })
+  } catch (err) {
+    next(err)
   }
-
-  await daoUser.update(id, updateParams)
-
-  sendResponse(res, {
-    status: StatusCodes.OK,
-    message: 'Your user has been successfully updated!'
-  })
 }
 
-export async function deleteUser (_req: Request, res: AuthResponse): Promise<void> {
+export async function deleteUser (_req: Request, res: AuthResponse, next: NextFunction): Promise<void> {
   const { id } = res.locals.user
 
-  await daoUser.delete(id)
+  try {
+    await daoUser.delete(id)
 
-  res.clearCookie(JWT_COOKIE_KEY)
+    res.clearCookie(JWT_COOKIE_KEY)
 
-  sendResponse(res, {
-    status: StatusCodes.OK,
-    message: 'Your user has been successfully deleted.'
-  })
+    sendResponse(res, {
+      status: StatusCodes.OK,
+      message: 'Your user has been successfully deleted.'
+    })
+  } catch (err) {
+    next(err)
+  }
 }
 
 export async function logout (req: Request, res: AuthResponse): Promise<void> {

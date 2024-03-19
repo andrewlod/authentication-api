@@ -9,13 +9,13 @@ export interface DataApplicationResponse extends ApplicationResponse {
   data: object
 }
 
-export interface ApplicationError {
+export interface ErrorDetails {
   code: string
   details: string
 }
 
 export interface ErrorApplicationResponse extends ApplicationResponse {
-  error: ApplicationError
+  error: ErrorDetails
 }
 
 export function sendResponse (res: Response, options: ApplicationResponse): void {
