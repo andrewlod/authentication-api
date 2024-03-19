@@ -39,7 +39,7 @@ export class DaoUser {
     })
   }
 
-  async update (id: number, data: UserUpdateInput): Promise<UserType> {
+  async update (id: number, data: UserUpdateInput): Promise<UserType | null> {
     return await this.user.update({
       where: {
         id
@@ -48,7 +48,7 @@ export class DaoUser {
     })
   }
 
-  async delete (id: number): Promise<UserType> {
+  async delete (id: number): Promise<UserType | null> {
     return await this.user.delete({
       where: {
         id

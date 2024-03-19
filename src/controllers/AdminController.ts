@@ -1,14 +1,11 @@
 import type { NextFunction, Request, Response } from 'express'
 import type { AuthResponse } from '../auth/AuthTypes'
 import { daoUser, type UserUpdateInput } from '../database'
-import { SecretManager } from '../secrets'
 import { StatusCodes } from 'http-status-codes'
-import bcrypt from 'bcrypt'
 import { sendDataResponse, sendResponse } from './ResponseFactory'
 import { ApplicationErrorNotFound } from '../errors/ApplicationError'
 import { ErrorConstants } from '../errors'
-
-const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
+import { CipherManager } from '../auth'
 
 type AdminUserUpdateInput = Omit<UserUpdateInput, 'is_admin'> & {
   isAdmin?: boolean
@@ -94,7 +91,7 @@ export async function adminUpdateUser (req: Request<AdminUserIdParams, any, Admi
     updateParams.is_admin = isAdmin
 
     if (password !== undefined) {
-      updateParams.password = await bcrypt.hash(password as string, PASSWORD_SALT)
+      updateParams.password = await CipherManager.hash(password as string)
     }
 
     await daoUser.update(user.id, updateParams)

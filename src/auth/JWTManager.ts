@@ -7,14 +7,14 @@ import { ErrorConstants } from '../errors'
 const JWT_SECRET = SecretManager.getSecret('JWT_SECRET')
 const JWT_EXPIRE_MINUTES = parseInt(SecretManager.getSecret('JWT_EXPIRE_MINUTES'))
 
-class JWTManager {
-  sign (payload: string | Buffer | object): string {
+export class JWTManager {
+  static sign (payload: string | Buffer | object): string {
     return sign(payload, JWT_SECRET, {
       expiresIn: JWT_EXPIRE_MINUTES * 60
     })
   }
 
-  async verify (token: string): Promise<string | JwtPayload> {
+  static async verify (token: string): Promise<string | JwtPayload> {
     return await new Promise((resolve, reject) => {
       verify(token, JWT_SECRET, (err, payload) => {
         if (err !== null || payload === undefined) {
@@ -29,5 +29,3 @@ class JWTManager {
     })
   }
 }
-
-export default new JWTManager()

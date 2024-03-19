@@ -7,7 +7,7 @@
     "install-db": "npx prisma generate --schema ./src/database/schemas/schema.prisma",
     "migrate": "npx prisma migrate dev --schema ./src/database/schemas/schema.prisma",
     "dev": "npx nodemon",
-    "test": "npm test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -25,18 +25,26 @@
   },
   "homepage": "https://github.com/andrewlod/authentication-api#readme",
   "devDependencies": {
+    "@babel/core": "^7.24.1",
+    "@babel/eslint-parser": "^7.24.1",
+    "@babel/preset-env": "^7.24.1",
+    "@babel/preset-typescript": "^7.24.1",
+    "@jest/globals": "^29.7.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.20",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.57.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.0",
     "prisma": "^5.10.2",
+    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
@@ -45,14 +53,17 @@
     "@prisma/client": "^5.10.2",
     "@types/cookie-parser": "^1.4.7",
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/supertest": "^6.0.2",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
+    "supertest": "^6.3.4",
     "winston": "^3.11.0"
   }
 }

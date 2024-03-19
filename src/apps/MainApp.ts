@@ -1,25 +1,31 @@
-import express from 'express'
+import express, { Router } from 'express'
 import type { ErrorRequestHandler, RequestHandler } from 'express'
 import cors from 'cors'
 import { AccountRouter, AdminRouter, UserRouter } from '../routers'
 import { AccessController } from '../controllers'
 import cookieParser from 'cookie-parser'
 import { handleError } from '../errors'
+import helmet from 'helmet'
 
 const app = express()
+app.use(helmet())
 app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 
-app.use('/api/v1/account', AccountRouter)
+const v1Router = Router()
+
+v1Router.use('/account', AccountRouter)
 
 // Authenticated routes
-app.use(AccessController.isAuthenticated as RequestHandler)
-app.use('/api/v1/users', UserRouter)
+v1Router.use(AccessController.isAuthenticated as RequestHandler)
+v1Router.use('/users', UserRouter)
 
 // Admin routes
-app.use(AccessController.isAdmin as RequestHandler)
-app.use('/api/v1/admin', AdminRouter)
+v1Router.use(AccessController.isAdmin as RequestHandler)
+v1Router.use('/admin', AdminRouter)
+
+app.use('/api/v1', v1Router)
 
 app.use(handleError as ErrorRequestHandler)
 
