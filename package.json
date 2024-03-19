@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/andrewlod/authentication-api#readme",
   "devDependencies": {
+    "@babel/eslint-parser": "^7.24.1",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
