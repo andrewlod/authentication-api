@@ -1,10 +1,10 @@
 import type { NextFunction, Request } from 'express'
 import { daoUser } from '../database'
-import bcrypt from 'bcrypt'
 import { SecretManager } from '../secrets'
 import { StatusCodes } from 'http-status-codes'
 import type { AuthResponse } from '../auth/AuthTypes'
 import { sendResponse } from './ResponseFactory'
+import { CipherManager } from '../auth'
 
 const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
 const JWT_COOKIE_KEY = SecretManager.getSecret('JWT_COOKIE_KEY')
@@ -25,7 +25,7 @@ export async function updateUser (req: Request<any, any, UserUpdateInput>, res: 
 
   try {
     if (password !== undefined) {
-      updateParams.password = await bcrypt.hash(password, PASSWORD_SALT)
+      updateParams.password = await CipherManager.hash(password)
     }
     console.log(id, updateParams)
     await daoUser.update(id, updateParams)

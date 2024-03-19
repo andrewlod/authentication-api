@@ -1,2 +1,3 @@
-export { default as JWTManager } from './JWTManager'
+export { JWTManager } from './JWTManager'
+export { CipherManager } from './CipherManager'
 export * as AuthTypes from './AuthTypes'

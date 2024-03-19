@@ -1,15 +1,13 @@
-import bcrypt from 'bcrypt'
 import type { NextFunction, Request, Response } from 'express'
 import type { RegularUserCreateInput } from '../database'
 import { daoUser } from '../database'
 import { StatusCodes } from 'http-status-codes'
 import { SecretManager } from '../secrets'
-import { JWTManager } from '../auth'
+import { CipherManager, JWTManager } from '../auth'
 import { sendDataResponse, sendResponse } from './ResponseFactory'
 import { ApplicationErrorConflict, ApplicationErrorUnauthorized } from '../errors/ApplicationError'
 import { ErrorConstants } from '../errors'
 
-const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
 const JWT_EXPIRE_MINUTES = parseInt(SecretManager.getSecret('JWT_EXPIRE_MINUTES'))
 const JWT_COOKIE_KEY = SecretManager.getSecret('JWT_COOKIE_KEY')
 
@@ -25,7 +23,7 @@ export async function register (req: Request<any, any, RegularUserCreateInput>, 
       }, 'User already exists!')
     }
 
-    const passwordHash = await bcrypt.hash(password, PASSWORD_SALT)
+    const passwordHash = await CipherManager.hash(password)
 
     await daoUser.create({
       email,
@@ -54,7 +52,7 @@ export async function login (req: Request<any, any, RegularUserCreateInput>, res
       }, 'Authentication failed.')
     }
 
-    const passwordMatches = await bcrypt.compare(password, user.password)
+    const passwordMatches = await CipherManager.compare(password, user.password)
     if (!passwordMatches) {
       throw new ApplicationErrorUnauthorized({
         code: ErrorConstants.INVALID_CREDENTIALS,
