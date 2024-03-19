@@ -1,7 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import type { AuthResponse } from '../auth/AuthTypes'
 import { daoUser, type UserUpdateInput } from '../database'
-import { SecretManager } from '../secrets'
 import { StatusCodes } from 'http-status-codes'
 import { sendDataResponse, sendResponse } from './ResponseFactory'
 import { ApplicationErrorNotFound } from '../errors/ApplicationError'
