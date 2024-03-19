@@ -5,8 +5,10 @@ import { AccountRouter, AdminRouter, UserRouter } from '../routers'
 import { AccessController } from '../controllers'
 import cookieParser from 'cookie-parser'
 import { handleError } from '../errors'
+import helmet from 'helmet'
 
 const app = express()
+app.use(helmet())
 app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
