@@ -8,8 +8,6 @@ import { ApplicationErrorNotFound } from '../errors/ApplicationError'
 import { ErrorConstants } from '../errors'
 import { CipherManager } from '../auth'
 
-const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
-
 type AdminUserUpdateInput = Omit<UserUpdateInput, 'is_admin'> & {
   isAdmin?: boolean
 }

@@ -6,7 +6,6 @@ import type { AuthResponse } from '../auth/AuthTypes'
 import { sendResponse } from './ResponseFactory'
 import { CipherManager } from '../auth'
 
-const PASSWORD_SALT = parseInt(SecretManager.getSecret('PASSWORD_SALT'))
 const JWT_COOKIE_KEY = SecretManager.getSecret('JWT_COOKIE_KEY')
 
 interface UserUpdateInput {
