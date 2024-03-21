@@ -30,10 +30,19 @@ export class DaoUserMock {
     this.findByEmail.bind(this)
   }
 
-  async findById (id: number, selectOptions: any = undefined): Promise<UserType | null> {
-    const user = this.data.get(id)
+  async findById (id: number, selectOptions: object | undefined = undefined): Promise<UserType | null> {
+    let user = this.data.get(id)
     if (user === undefined) {
       return null
+    }
+
+    if (selectOptions !== undefined) {
+      let allowedKeys = Object.entries(selectOptions).filter(([k, v]) => v === true).map(([k, v]) => k)
+      for (let key of Object.keys(user)) {
+        if (!allowedKeys.includes(key)) {
+          user[key] = undefined
+        }
+      }
     }
 
     return user
