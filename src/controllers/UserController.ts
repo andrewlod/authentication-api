@@ -26,7 +26,6 @@ export async function updateUser (req: Request<any, any, UserUpdateInput>, res: 
     if (password !== undefined) {
       updateParams.password = await CipherManager.hash(password)
     }
-    console.log(id, updateParams)
     await daoUser.update(id, updateParams)
 
     sendResponse(res, {
