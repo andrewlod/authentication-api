@@ -13,7 +13,7 @@ jest.mock('../../src/database', () => {
 import { MainApp } from "../../src/apps"
 import { ErrorConstants } from '../../src/errors'
 import { CipherManager } from '../../src/auth'
-import { expectExistingEmailError, expectInvalidBody } from '../helper/TestHelper'
+import { expectExistingEmailError, expectInvalidBody, expectUserNotFoundError } from '../helper/TestHelper'
 
 describe('Admin Controller [V1]', () => {
   const USER_EMAIL = 'example@example.com'
@@ -166,10 +166,7 @@ describe('Admin Controller [V1]', () => {
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
       
-      expect(response.statusCode).toBe(StatusCodes.NOT_FOUND)
-      expect(response.body).toHaveProperty('error')
-      expect(response.body.error).toHaveProperty('code')
-      expect(response.body.error.code).toBe(ErrorConstants.USER_NOT_FOUND)
+      expectUserNotFoundError(response)
     })
     
     test('Delete User - Success', async () => {
@@ -193,10 +190,7 @@ describe('Admin Controller [V1]', () => {
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
       
-        expect(response.statusCode).toBe(StatusCodes.NOT_FOUND)
-        expect(response.body).toHaveProperty('error')
-        expect(response.body.error).toHaveProperty('code')
-        expect(response.body.error.code).toBe(ErrorConstants.USER_NOT_FOUND)
+        expectUserNotFoundError(response)
     })
   })
 

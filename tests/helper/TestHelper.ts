@@ -16,3 +16,10 @@ export function expectExistingEmailError(response: Response) {
   expect(response.body.error).toHaveProperty('code')
   expect(response.body.error.code).toBe(ErrorConstants.USER_EXISTS)
 }
+
+export function expectUserNotFoundError(response: Response) {
+  expect(response.statusCode).toBe(StatusCodes.NOT_FOUND)
+  expect(response.body).toHaveProperty('error')
+  expect(response.body.error).toHaveProperty('code')
+  expect(response.body.error.code).toBe(ErrorConstants.USER_NOT_FOUND)
+}
