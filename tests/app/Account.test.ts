@@ -13,6 +13,7 @@ jest.mock('../../src/database', () => {
 import { MainApp } from "../../src/apps"
 import { CipherManager } from '../../src/auth'
 import { ErrorConstants } from '../../src/errors'
+import { expectInvalidBody } from '../helper/TestHelper'
 
 describe('Account Controller [V1]', () => {
   afterEach(() => {
@@ -55,10 +56,7 @@ describe('Account Controller [V1]', () => {
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
     
-    expect(response.statusCode).toBe(StatusCodes.BAD_REQUEST)
-    expect(response.body).toHaveProperty('error')
-    expect(response.body.error).toHaveProperty('code')
-    expect(response.body.error.code).toBe(ErrorConstants.INVALID_BODY)
+    expectInvalidBody(response)
   })
 
   test('Register User - Password too short', async () => {
@@ -74,10 +72,7 @@ describe('Account Controller [V1]', () => {
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
     
-    expect(response.statusCode).toBe(StatusCodes.BAD_REQUEST)
-    expect(response.body).toHaveProperty('error')
-    expect(response.body.error).toHaveProperty('code')
-    expect(response.body.error.code).toBe(ErrorConstants.INVALID_BODY)
+    expectInvalidBody(response)
   })
 
   test('Login - Success', async () => {
