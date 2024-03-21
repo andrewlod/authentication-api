@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.523.0",
+    "@jest/types": "^29.6.3",
     "@prisma/client": "^5.10.2",
     "@types/cookie-parser": "^1.4.7",
     "@types/jsonwebtoken": "^9.0.6",

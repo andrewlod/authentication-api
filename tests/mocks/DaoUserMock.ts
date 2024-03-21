@@ -40,7 +40,6 @@ export class DaoUserMock {
   }
 
   async findByEmail (email: string): Promise<UserType | null> {
-    console.log(this)
     for (let user of this.data.values()) {
       if (user.email === email) {
         return user
