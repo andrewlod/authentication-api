@@ -30,9 +30,6 @@ describe('Health Check [V1]', () => {
   })
 
   test('Route Not Found', async () => {
-    const packageJson = fs.readFileSync(path.join(__dirname, '../../package.json'))
-    const apiVersion = JSON.parse(packageJson.toString('utf-8')).version
-
     const response = await request(MainApp)
       .post('/api/v1/api-info/this-route-does-not-exist')
       .send()

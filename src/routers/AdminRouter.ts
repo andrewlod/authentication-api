@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import type { RequestHandler } from 'express'
 import { AdminController } from '../controllers'
-import { DatabaseMiddlewares } from '../middlewares'
+import { DatabaseMiddlewares, RouteMiddlewares } from '../middlewares'
 import { AdminValidation } from '../validation'
 
 const router = Router()
@@ -12,5 +12,7 @@ router.get('/users/:id', AdminValidation.ValidateAdminUserGet, AdminController.g
 router.put('/users/:id', AdminValidation.ValidateAdminUserUpdate, DatabaseMiddlewares.checkEmailExists('email'), AdminController.adminUpdateUser as RequestHandler)
 
 router.delete('/users/:id', AdminController.adminDeleteUser as RequestHandler)
+
+router.use('*', RouteMiddlewares.routeNotFound)
 
 export default router
