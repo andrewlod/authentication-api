@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
-import type { RegularUserCreateInput } from '../database'
-import { daoUser } from '../database'
+import type { Types } from '../database'
+import { daoUser, daoUserToken } from '../database'
 import { StatusCodes } from 'http-status-codes'
 import { SecretManager } from '../secrets'
 import { CipherManager, JWTManager } from '../auth'
@@ -11,7 +11,7 @@ import { ErrorConstants } from '../errors'
 const JWT_EXPIRE_MINUTES = parseInt(SecretManager.getSecret('JWT_EXPIRE_MINUTES'))
 const JWT_COOKIE_KEY = SecretManager.getSecret('JWT_COOKIE_KEY')
 
-export async function register (req: Request<any, any, RegularUserCreateInput>, res: Response, next: NextFunction): Promise<void> {
+export async function register (req: Request<any, any, Types.RegularUserCreateInput>, res: Response, next: NextFunction): Promise<void> {
   const { email, password } = req.body
 
   try {
@@ -40,7 +40,7 @@ export async function register (req: Request<any, any, RegularUserCreateInput>, 
   }
 }
 
-export async function login (req: Request<any, any, RegularUserCreateInput>, res: Response, next: NextFunction): Promise<void> {
+export async function login (req: Request<any, any, Types.RegularUserCreateInput>, res: Response, next: NextFunction): Promise<void> {
   const { email, password } = req.body
 
   try {
@@ -60,12 +60,26 @@ export async function login (req: Request<any, any, RegularUserCreateInput>, res
       }, 'Authentication failed.')
     }
 
-    const token = 'Bearer ' + JWTManager.sign({
+    const token = JWTManager.sign({
       id: user.id,
       timestamp: new Date()
     })
 
-    res.cookie(JWT_COOKIE_KEY, token, {
+    const now = new Date()
+
+    await daoUserToken.create({
+      token,
+      expires_at: new Date(now.getTime() + 60000 * JWT_EXPIRE_MINUTES),
+      user: {
+        connect: {
+          id: user.id
+        }
+      }
+    })
+
+    const bearerToken = `Bearer ${token}`
+
+    res.cookie(JWT_COOKIE_KEY, bearerToken, {
       maxAge: 1000 * 60 * JWT_EXPIRE_MINUTES,
       httpOnly: true
     })
@@ -74,7 +88,7 @@ export async function login (req: Request<any, any, RegularUserCreateInput>, res
       status: StatusCodes.OK,
       message: 'Authentication successful!',
       data: {
-        token
+        token: bearerToken
       }
     })
   } catch (err) {

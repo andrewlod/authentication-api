@@ -1,13 +1,13 @@
 import type { NextFunction, Request, Response } from 'express'
 import type { AuthResponse } from '../auth/AuthTypes'
-import { daoUser, type UserUpdateInput } from '../database'
+import { daoUser, type Types } from '../database'
 import { StatusCodes } from 'http-status-codes'
 import { sendDataResponse, sendResponse } from './ResponseFactory'
 import { ApplicationErrorNotFound } from '../errors/ApplicationError'
 import { ErrorConstants } from '../errors'
 import { CipherManager } from '../auth'
 
-type AdminUserUpdateInput = Omit<UserUpdateInput, 'is_admin'> & {
+type AdminUserUpdateInput = Omit<Types.UserUpdateInput, 'is_admin'> & {
   isAdmin?: boolean
 }
 
@@ -86,7 +86,7 @@ export async function adminUpdateUser (req: Request<AdminUserIdParams, any, Admi
       }, 'User not found.')
     }
 
-    const updateParams: UserUpdateInput = {}
+    const updateParams: Types.UserUpdateInput = {}
     updateParams.email = newEmail
     updateParams.is_admin = isAdmin
 

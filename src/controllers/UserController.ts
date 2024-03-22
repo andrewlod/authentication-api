@@ -1,10 +1,12 @@
 import type { NextFunction, Request } from 'express'
-import { daoUser } from '../database'
+import { daoUser, daoUserToken } from '../database'
 import { SecretManager } from '../secrets'
 import { StatusCodes } from 'http-status-codes'
 import type { AuthResponse } from '../auth/AuthTypes'
 import { sendResponse } from './ResponseFactory'
 import { CipherManager } from '../auth'
+import { ApplicationErrorNotFound } from '../errors/ApplicationError'
+import { ErrorConstants } from '../errors'
 
 const JWT_COOKIE_KEY = SecretManager.getSecret('JWT_COOKIE_KEY')
 
@@ -55,6 +57,19 @@ export async function deleteUser (_req: Request, res: AuthResponse, next: NextFu
 }
 
 export async function logout (req: Request, res: AuthResponse): Promise<void> {
+  let userToken = await daoUserToken.findByToken(res.locals.token)
+
+  if (userToken == null) {
+    throw new ApplicationErrorNotFound({
+      code: ErrorConstants.USER_NOT_FOUND,
+      details: 'Your token has not been found!'
+    }, 'Token not found.')
+  }
+
+  await daoUserToken.update(userToken.id, {
+    expires_at: new Date()
+  })
+
   res.clearCookie(JWT_COOKIE_KEY)
 
   sendResponse(res, {

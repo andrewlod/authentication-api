@@ -5,7 +5,8 @@ export interface AuthLocals {
     id: number
     timestamp: Date
   }
-  authenticated: boolean
+  authenticated: boolean,
+  token: string
 }
 
 export type AuthResponse = Omit<Response, 'locals'> & {

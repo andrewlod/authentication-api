@@ -1,12 +1,14 @@
 import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
 import request from 'supertest'
 import { StatusCodes } from 'http-status-codes'
-import { DaoUserMock } from '../mocks/DaoUserMock'
+import { DaoUserMock, DaoUserTokenMock } from '../mocks'
 
 let daoUserMock = new DaoUserMock()
+let daoUserTokenMock = new DaoUserTokenMock()
 jest.mock('../../src/database', () => {
   return {
-    daoUser: daoUserMock
+    daoUser: daoUserMock,
+    daoUserToken: daoUserTokenMock
   }
 })
 
@@ -18,7 +20,7 @@ import { expectExistingEmailError, expectInvalidBody, expectUserNotFoundError } 
 describe('Admin Controller [V1]', () => {
   const USER_EMAIL = 'example@example.com'
   const USER_PASSWORD = 'foobar123'
-  let USER_TOKEN
+  let USER_TOKEN: string
 
   test('No token', async () => {
     const response = await request(MainApp)

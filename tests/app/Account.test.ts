@@ -1,12 +1,14 @@
 import { afterEach, describe, expect, jest, test } from '@jest/globals'
 import request from 'supertest'
 import { StatusCodes } from 'http-status-codes'
-import { DaoUserMock } from '../mocks/DaoUserMock'
+import { DaoUserMock, DaoUserTokenMock } from '../mocks'
 
 let daoUserMock = new DaoUserMock()
+let daoUserTokenMock = new DaoUserTokenMock()
 jest.mock('../../src/database', () => {
   return {
-    daoUser: daoUserMock
+    daoUser: daoUserMock,
+    daoUserToken: daoUserTokenMock
   }
 })
 
