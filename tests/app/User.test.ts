@@ -150,5 +150,11 @@ describe('User Controller [V1]', () => {
     expect(response.statusCode).toBe(StatusCodes.OK)
     expect(response.body).toHaveProperty('message')
     expect(response.body.message).toBe('You have logged off.')
+
+    const userToken = await daoUserTokenMock.findByToken(USER_TOKEN)
+    expect(userToken).not.toBeNull()
+
+    const now = new Date()
+    expect(now.getTime()).toBeGreaterThanOrEqual(userToken?.expires_at.getTime() || Infinity)
   })
 })
