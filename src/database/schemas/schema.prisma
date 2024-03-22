@@ -3,6 +3,16 @@ model User {
     email       String  @user_db.VarChar(255)   @unique
     password    String  @user_db.VarChar(128)
     is_admin    Boolean
+    tokens      UserToken[]
+}
+
+model UserToken {
+    id          Int     @id @default(autoincrement())
+    user_id     Int
+    token       String  @user_db.VarChar(255)
+    user        User    @relation(fields: [user_id], references: [id])
+
+    @@map("user_token")
 }
 
 datasource user_db {
