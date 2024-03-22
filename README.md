@@ -105,7 +105,6 @@ This section describes features that are either work-in-progress or will be impl
 |---------|--------|
 | Track JWT expiry status when user logs off | ❌ |
 | Turn DATABASE_URL into secret | ❌ |
-| Add version and health-check routes | ❌ |
 | Swagger Documentation | ❌ |
 | Code Documentation | ❌ |
 | Production Build Scripts | ❌ |

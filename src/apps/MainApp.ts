@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
 import type { ErrorRequestHandler, RequestHandler } from 'express'
 import cors from 'cors'
-import { AccountRouter, AdminRouter, UserRouter } from '../routers'
+import { AccountRouter, AdminRouter, ApiInfoRouter, UserRouter } from '../routers'
 import { AccessController } from '../controllers'
 import cookieParser from 'cookie-parser'
 import { handleError } from '../errors'
@@ -15,6 +15,7 @@ app.use(cookieParser())
 
 const v1Router = Router()
 
+v1Router.use('/api-info', ApiInfoRouter)
 v1Router.use('/account', AccountRouter)
 
 // Authenticated routes
