@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express'
-import type { RegularUserCreateInput } from '../database'
+import type { Types } from '../database'
 import { daoUser } from '../database'
 import { StatusCodes } from 'http-status-codes'
 import { SecretManager } from '../secrets'
@@ -11,7 +11,7 @@ import { ErrorConstants } from '../errors'
 const JWT_EXPIRE_MINUTES = parseInt(SecretManager.getSecret('JWT_EXPIRE_MINUTES'))
 const JWT_COOKIE_KEY = SecretManager.getSecret('JWT_COOKIE_KEY')
 
-export async function register (req: Request<any, any, RegularUserCreateInput>, res: Response, next: NextFunction): Promise<void> {
+export async function register (req: Request<any, any, Types.RegularUserCreateInput>, res: Response, next: NextFunction): Promise<void> {
   const { email, password } = req.body
 
   try {
@@ -40,7 +40,7 @@ export async function register (req: Request<any, any, RegularUserCreateInput>, 
   }
 }
 
-export async function login (req: Request<any, any, RegularUserCreateInput>, res: Response, next: NextFunction): Promise<void> {
+export async function login (req: Request<any, any, Types.RegularUserCreateInput>, res: Response, next: NextFunction): Promise<void> {
   const { email, password } = req.body
 
   try {

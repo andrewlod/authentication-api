@@ -25,9 +25,6 @@ export class DaoUserMock {
   constructor () {
     this.data = new Map<number, UserType>()  
     this.autoId = 1
-
-    this.findById.bind(this)
-    this.findByEmail.bind(this)
   }
 
   async findById (id: number, selectOptions: object | undefined = undefined): Promise<UserType | null> {
