@@ -23,6 +23,7 @@ The Authentication System API is a robust authentication system REST API built i
 ## Technologies
 - TypeScript
 - Node.js 20
+- Express.js
 - Prisma ORM (MySQL)
 - AWS Secrets Manager
 
@@ -102,13 +103,12 @@ This section describes features that are either work-in-progress or will be impl
 
 | Feature | Status |
 |---------|--------|
-| Unit Tests | 🚧 |
 | Track JWT expiry status when user logs off | ❌ |
 | Turn DATABASE_URL into secret | ❌ |
 | Swagger Documentation | ❌ |
 | Code Documentation | ❌ |
 | Production Build Scripts | ❌ |
-| Dockerize Application | ❌ |
+| Dockerize Application (v1.0.0) | ❌ |
 | Kubernetes Configuration | ❌ |
 | CI with GitHub Actions | ❌ |
 | CI/CD with AWS CodeBuild/CodePipeline | ❌ |
