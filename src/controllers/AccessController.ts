@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express'
 import type { AuthResponse } from '../auth/AuthTypes'
 import { SecretManager } from '../secrets'
 import { JWTManager } from '../auth'
-import { daoUser } from '../database'
+import { daoUser, daoUserToken } from '../database'
 import { ErrorConstants } from '../errors'
 import { ApplicationErrorForbidden, ApplicationErrorNotFound, ApplicationErrorUnauthorized } from '../errors/ApplicationError'
 
@@ -38,9 +38,21 @@ export async function isAuthenticated (req: Request, res: Response, next: NextFu
       }, 'Invalid token type.')
     }
 
-    const decoded = await JWTManager.verify(authorization.substring(7))
+    let token = authorization.substring(7)
+    const userToken = await daoUserToken.findByToken(token)
+
+    if (userToken === null || userToken.expires_at < new Date()) {
+      throw new ApplicationErrorUnauthorized({
+        code: ErrorConstants.TOKEN_EXPIRED,
+        details: 'Your token has expired. Please authenticate again to continue.'
+      }, 'Token expired.')
+    }
+
+    const decoded = await JWTManager.verify(token)
     res.locals.user = decoded
     res.locals.authenticated = true
+    res.locals.token = token
+
 
     next()
   } catch (err) {

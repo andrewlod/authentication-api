@@ -151,7 +151,8 @@ describe('User Controller [V1]', () => {
     expect(response.body).toHaveProperty('message')
     expect(response.body.message).toBe('You have logged off.')
 
-    const userToken = await daoUserTokenMock.findByToken(USER_TOKEN)
+    let token = USER_TOKEN.substring(7)
+    const userToken = await daoUserTokenMock.findByToken(token)
     expect(userToken).not.toBeNull()
 
     const now = new Date()
