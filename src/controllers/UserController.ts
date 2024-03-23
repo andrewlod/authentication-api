@@ -56,24 +56,28 @@ export async function deleteUser (_req: Request, res: AuthResponse, next: NextFu
   }
 }
 
-export async function logout (req: Request, res: AuthResponse): Promise<void> {
-  let userToken = await daoUserToken.findByToken(res.locals.token)
+export async function logout (req: Request, res: AuthResponse, next: NextFunction): Promise<void> {
+  try {
+    let userToken = await daoUserToken.findByToken(res.locals.token)
 
-  if (userToken == null) {
-    throw new ApplicationErrorNotFound({
-      code: ErrorConstants.USER_NOT_FOUND,
-      details: 'Your token has not been found!'
-    }, 'Token not found.')
+    if (userToken == null) {
+      throw new ApplicationErrorNotFound({
+        code: ErrorConstants.USER_NOT_FOUND,
+        details: 'Your token has not been found!'
+      }, 'Token not found.')
+    }
+
+    await daoUserToken.update(userToken.id, {
+      expires_at: new Date()
+    })
+
+    res.clearCookie(JWT_COOKIE_KEY)
+
+    sendResponse(res, {
+      status: StatusCodes.OK,
+      message: 'You have logged off.'
+    })
+  } catch (err) {
+    next(err)
   }
-
-  await daoUserToken.update(userToken.id, {
-    expires_at: new Date()
-  })
-
-  res.clearCookie(JWT_COOKIE_KEY)
-
-  sendResponse(res, {
-    status: StatusCodes.OK,
-    message: 'You have logged off.'
-  })
 }
