@@ -5,8 +5,8 @@ import { RouteMiddlewares } from '../middlewares'
 
 const router = Router()
 
-router.post('/ping', ApiInfoController.ping as RequestHandler)
-router.post('/version', ApiInfoController.version as RequestHandler)
+router.get('/ping', ApiInfoController.ping as RequestHandler)
+router.get('/version', ApiInfoController.version as RequestHandler)
 
 router.use('*', RouteMiddlewares.routeNotFound)
 

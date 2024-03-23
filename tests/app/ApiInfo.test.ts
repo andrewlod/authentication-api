@@ -10,7 +10,7 @@ import { ErrorConstants } from '../../src/errors'
 describe('Health Check [V1]', () => {
   test('Ping', async () => {
     const response = await request(MainApp)
-      .post('/api/v1/api-info/ping')
+      .get('/api/v1/api-info/ping')
       .send()
     
     expect(response.statusCode).toBe(StatusCodes.OK)
@@ -22,7 +22,7 @@ describe('Health Check [V1]', () => {
     const apiVersion = JSON.parse(packageJson.toString('utf-8')).version
 
     const response = await request(MainApp)
-      .post('/api/v1/api-info/version')
+      .get('/api/v1/api-info/version')
       .send()
     
       expect(response.statusCode).toBe(StatusCodes.OK)
@@ -31,7 +31,7 @@ describe('Health Check [V1]', () => {
 
   test('Route Not Found', async () => {
     const response = await request(MainApp)
-      .post('/api/v1/api-info/this-route-does-not-exist')
+      .get('/api/v1/api-info/this-route-does-not-exist')
       .send()
     
       expect(response.statusCode).toBe(StatusCodes.NOT_FOUND)
