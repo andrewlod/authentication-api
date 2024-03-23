@@ -60,6 +60,20 @@ const doc = {
               type: 'string'
             }
           }
+        },
+        UpdateUser: {
+          type: 'object',
+          properties: {
+            email: {
+              type: 'string'
+            },
+            password: {
+              type: 'string'
+            },
+            isAdmin: {
+              type: 'boolean'
+            }
+          }
         }
       },
       responses: {
@@ -159,12 +173,50 @@ const doc = {
               }
             }
           }
+        },
+        GetUserByIdResponse: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'number'
+            },
+            message: {
+              type: 'string'
+            },
+            timestamp: {
+              type: 'string'
+            },
+            data: {
+              type: 'object',
+              properties: {
+                user: {
+                  type: 'object',
+                  properties: {
+                    id: {
+                      type: 'number'
+                    },
+                    email: {
+                      type: 'string'
+                    },
+                    is_admin: {
+                      type: 'boolean'
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       },
       examples: {
         RegisterAccount: {
           email: 'example@example.com',
           password: 'foobar123'
+        },
+        UpdateUser: {
+          email: 'example@example.com',
+          password: 'foobar123',
+          isAdmin: true
         }
       }
   }
