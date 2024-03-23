@@ -56,7 +56,7 @@ export async function deleteUser (_req: Request, res: AuthResponse, next: NextFu
   }
 }
 
-export async function logout (req: Request, res: AuthResponse, next: NextFunction): Promise<void> {
+export async function logout (_req: Request, res: AuthResponse, next: NextFunction): Promise<void> {
   try {
     let userToken = await daoUserToken.findByToken(res.locals.token)
 
