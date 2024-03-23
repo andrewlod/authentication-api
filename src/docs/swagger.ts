@@ -61,7 +61,7 @@ const doc = {
             }
           }
         },
-        UpdateUser: {
+        AdminUpdateUser: {
           type: 'object',
           properties: {
             email: {
@@ -72,6 +72,17 @@ const doc = {
             },
             isAdmin: {
               type: 'boolean'
+            }
+          }
+        },
+        UpdateUser: {
+          type: 'object',
+          properties: {
+            email: {
+              type: 'string'
+            },
+            password: {
+              type: 'string'
             }
           }
         }
@@ -213,10 +224,14 @@ const doc = {
           email: 'example@example.com',
           password: 'foobar123'
         },
-        UpdateUser: {
+        AdminUpdateUser: {
           email: 'example@example.com',
           password: 'foobar123',
           isAdmin: true
+        },
+        UpdateUser: {
+          email: 'example@example.com',
+          password: 'foobar123'
         }
       }
   }
