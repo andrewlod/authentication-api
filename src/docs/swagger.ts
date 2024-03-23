@@ -98,6 +98,28 @@ const doc = {
               }
             }
           }
+        },
+        LoginResponse: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'number'
+            },
+            message: {
+              type: 'string'
+            },
+            timestamp: {
+              type: 'string'
+            },
+            data: {
+              type: 'object',
+              properties: {
+                token: {
+                  type: 'string'
+                }
+              }
+            }
+          }
         }
       },
       examples: {
