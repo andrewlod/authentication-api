@@ -1,5 +1,7 @@
 import express, { Router } from 'express'
 import type { ErrorRequestHandler, RequestHandler } from 'express'
+import swaggerUi from 'swagger-ui-express'
+import swaggerOutput from '../docs/swagger_output.json'
 import cors from 'cors'
 import { AccountRouter, AdminRouter, ApiInfoRouter, UserRouter } from '../routers'
 import { AccessController } from '../controllers'
@@ -15,6 +17,7 @@ app.use(cookieParser())
 
 const v1Router = Router()
 
+v1Router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput))
 v1Router.use('/api-info', ApiInfoRouter)
 v1Router.use('/account', AccountRouter)
 

@@ -51,7 +51,7 @@ export async function isAuthenticated (req: Request, res: Response, next: NextFu
     const decoded = await JWTManager.verify(token)
     res.locals.user = decoded
     res.locals.authenticated = true
-    res.locals.token = token
+    res.locals.token = userToken.token
 
 
     next()
