@@ -97,6 +97,29 @@ router.get('/users', AdminController.getAllUsers as RequestHandler
         }
       }
     }
+* #swagger.responses[403] = {
+     description: 'Forbidden',
+     content: {
+       'application/json': { 
+         schema: { 
+           $ref: "#/components/responses/ErrorResponse" 
+         },
+         examples: {
+           "Forbidden": {
+             value: {
+               "status": 403,
+               "message": "User not authorized.",
+               "timestamp": "2024-03-23T17:46:20.968Z",
+               "error": {
+                 "code": "NOT_ENOUGH_PRIVILEGES",
+                 "details": "You must be an administrator to perform that action!"
+               }
+             }
+           },
+         }
+       }
+     }
+   }
   */
  )
 router.get('/users/:id', AdminValidation.ValidateAdminUserGet, AdminController.getUser as RequestHandler
@@ -188,6 +211,29 @@ router.get('/users/:id', AdminValidation.ValidateAdminUserGet, AdminController.g
         }
       }
     }
+* #swagger.responses[403] = {
+     description: 'Forbidden',
+     content: {
+       'application/json': { 
+         schema: { 
+           $ref: "#/components/responses/ErrorResponse" 
+         },
+         examples: {
+           "Forbidden": {
+             value: {
+               "status": 403,
+               "message": "User not authorized.",
+               "timestamp": "2024-03-23T17:46:20.968Z",
+               "error": {
+                 "code": "NOT_ENOUGH_PRIVILEGES",
+                 "details": "You must be an administrator to perform that action!"
+               }
+             }
+           },
+         }
+       }
+     }
+   }
 * #swagger.responses[404] = {
      description: 'Not Found',
      content: {
@@ -196,14 +242,37 @@ router.get('/users/:id', AdminValidation.ValidateAdminUserGet, AdminController.g
            $ref: "#/components/responses/ErrorResponse" 
          },
          examples: {
-           "Bad Request": {
+           "Not Found": {
              value: {
-               "status": 400,
+               "status": 404,
                "message": "User not found.",
                "timestamp": "2024-03-23T17:46:20.968Z",
                "error": {
                  "code": "USER_NOT_FOUND",
                  "details": "User with ID 1 was not found in the database."
+               }
+             }
+           },
+         }
+       }
+     }
+   }
+* #swagger.responses[409] = {
+     description: 'Conflict',
+     content: {
+       'application/json': { 
+         schema: { 
+           $ref: "#/components/responses/ErrorResponse" 
+         },
+         examples: {
+           "Conflict": {
+             value: {
+               "status": 409,
+               "message": "Email already registered.",
+               "timestamp": "2024-03-23T17:46:20.968Z",
+               "error": {
+                 "code": "USER_EXISTS",
+                 "details": "Email address example@example.com is already registered!"
                }
              }
            },
@@ -226,11 +295,11 @@ router.put('/users/:id', AdminValidation.ValidateAdminUserUpdate, DatabaseMiddle
       content: { 
         'application/json': { 
           schema: { 
-            $ref: "#/components/requests/UpdateUser"
+            $ref: "#/components/requests/AdminUpdateUser"
           },
           examples: {
             'Modify User': {
-              $ref: "#/components/examples/UpdateUser"
+              $ref: "#/components/examples/AdminUpdateUser"
             }
           }
         }
@@ -311,6 +380,29 @@ router.put('/users/:id', AdminValidation.ValidateAdminUserUpdate, DatabaseMiddle
         }
       }
     }
+* #swagger.responses[403] = {
+     description: 'Forbidden',
+     content: {
+       'application/json': { 
+         schema: { 
+           $ref: "#/components/responses/ErrorResponse" 
+         },
+         examples: {
+           "Forbidden": {
+             value: {
+               "status": 403,
+               "message": "User not authorized.",
+               "timestamp": "2024-03-23T17:46:20.968Z",
+               "error": {
+                 "code": "NOT_ENOUGH_PRIVILEGES",
+                 "details": "You must be an administrator to perform that action!"
+               }
+             }
+           },
+         }
+       }
+     }
+   }
 * #swagger.responses[404] = {
      description: 'Not Found',
      content: {
@@ -319,14 +411,37 @@ router.put('/users/:id', AdminValidation.ValidateAdminUserUpdate, DatabaseMiddle
            $ref: "#/components/responses/ErrorResponse" 
          },
          examples: {
-           "Bad Request": {
+           "Not Found": {
              value: {
-               "status": 400,
+               "status": 404,
                "message": "User not found.",
                "timestamp": "2024-03-23T17:46:20.968Z",
                "error": {
                  "code": "USER_NOT_FOUND",
                  "details": "User with ID 1 was not found in the database."
+               }
+             }
+           },
+         }
+       }
+     }
+   }
+* #swagger.responses[409] = {
+     description: 'Conflict',
+     content: {
+       'application/json': { 
+         schema: { 
+           $ref: "#/components/responses/ErrorResponse" 
+         },
+         examples: {
+           "Conflict": {
+             value: {
+               "status": 409,
+               "message": "Email already registered.",
+               "timestamp": "2024-03-23T17:46:20.968Z",
+               "error": {
+                 "code": "USER_EXISTS",
+                 "details": "Email address example@example.com is already registered!"
                }
              }
            },
@@ -419,6 +534,29 @@ router.delete('/users/:id', AdminController.adminDeleteUser as RequestHandler
         }
       }
     }
+* #swagger.responses[403] = {
+     description: 'Forbidden',
+     content: {
+       'application/json': { 
+         schema: { 
+           $ref: "#/components/responses/ErrorResponse" 
+         },
+         examples: {
+           "Forbidden": {
+             value: {
+               "status": 403,
+               "message": "User not authorized.",
+               "timestamp": "2024-03-23T17:46:20.968Z",
+               "error": {
+                 "code": "NOT_ENOUGH_PRIVILEGES",
+                 "details": "You must be an administrator to perform that action!"
+               }
+             }
+           },
+         }
+       }
+     }
+   }
 * #swagger.responses[404] = {
      description: 'Not Found',
      content: {
@@ -427,9 +565,9 @@ router.delete('/users/:id', AdminController.adminDeleteUser as RequestHandler
            $ref: "#/components/responses/ErrorResponse" 
          },
          examples: {
-           "Bad Request": {
+           "Not Found": {
              value: {
-               "status": 400,
+               "status": 404,
                "message": "User not found",
                "timestamp": "2024-03-23T17:46:20.968Z",
                "error": {
