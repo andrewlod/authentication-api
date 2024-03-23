@@ -96,7 +96,8 @@ router.post('/register', AccountValidation.ValidateAccountCreation, AccountContr
   */
 )
    
-router.post('/login', AccountValidation.ValidateAccountCreation, AccountController.login as RequestHandler  /**
+router.post('/login', AccountValidation.ValidateAccountCreation, AccountController.login as RequestHandler  
+/**
 * #swagger.tags = ['Account']
 * #swagger.summary = 'Login'
 * #swagger.description = 'Log into the system with existing credentials'

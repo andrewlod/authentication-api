@@ -41,9 +41,12 @@ const doc = {
   ],
   components: {
       securitySchemes: {
-          bearerAuth: {
-              type: 'http',
-              scheme: 'bearer'
+          BearerAuth: {
+            description: 'Access token retrieved from /api/v1/account/login',
+            type: 'http',
+            scheme: 'bearer',
+            in: 'header',
+            name: 'Authorization'
           }
       },
       requests: {
@@ -116,6 +119,42 @@ const doc = {
               properties: {
                 token: {
                   type: 'string'
+                }
+              }
+            }
+          }
+        },
+        GetAllUsersResponse: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'number'
+            },
+            message: {
+              type: 'string'
+            },
+            timestamp: {
+              type: 'string'
+            },
+            data: {
+              type: 'object',
+              properties: {
+                users: {
+                  type: 'list',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      id: {
+                        type: 'number'
+                      },
+                      email: {
+                        type: 'string'
+                      },
+                      is_admin: {
+                        type: 'boolean'
+                      }
+                    }
+                  }
                 }
               }
             }
