@@ -103,7 +103,6 @@ This section describes features that are either work-in-progress or will be impl
 
 | Feature | Status |
 |---------|--------|
-| Turn DATABASE_URL into secret | ❌ |
 | Swagger Documentation | ❌ |
 | Code Documentation | ❌ |
 | Production Build Scripts | ❌ |
