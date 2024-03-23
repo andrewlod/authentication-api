@@ -21,12 +21,90 @@ const doc = {
         description: 'Production server'
     }
   ],
+  tags: [
+    {
+      name: 'Account',
+      description: 'Account-related routes'
+    },
+    {
+      name: 'User',
+      description: 'Authenticated user-related routes'
+    },
+    {
+      name: 'Admin',
+      description: 'Administrator-related routes'
+    },
+    {
+      name: 'API Info',
+      description: 'Routes for health-checking and basic API info'
+    }
+  ],
   components: {
       securitySchemes: {
           bearerAuth: {
               type: 'http',
               scheme: 'bearer'
           }
+      },
+      requests: {
+        RegisterAccount: {
+          type: 'object',
+          properties: {
+            email: {
+              type: 'string'
+            },
+            password: {
+              type: 'string'
+            }
+          }
+        }
+      },
+      responses: {
+        SimpleResponse: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'number'
+            },
+            message: {
+              type: 'string'
+            },
+            timestamp: {
+              type: 'string'
+            }
+          }
+        },
+        ErrorResponse: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'number'
+            },
+            message: {
+              type: 'string'
+            },
+            timestamp: {
+              type: 'string'
+            },
+            error: {
+              type: 'object',
+              properties: {
+                code: {
+                  type: 'string'
+                },
+                details: {
+                  type: 'string'
+                }
+              }
+            }
+          }
+        }
+      },
+      examples: {
+        RegisterAccount: {
+          email: 'example@example.com',
+          password: 'foobar123'
+        }
       }
   }
 }
