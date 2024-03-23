@@ -91,7 +91,10 @@ Any file changes will automatically reload the application
 TODO: Write production instructions
 
 ## Documentation
-TODO: Implement Swagger documentation
+In order to generate the Swagger documentation, run the following script before running the app:
+```sh
+npm run swagger-autogen
+```
 
 ## Running Tests
 TODO: Implement unit testing
@@ -103,7 +106,6 @@ This section describes features that are either work-in-progress or will be impl
 
 | Feature | Status |
 |---------|--------|
-| Swagger Documentation | ❌ |
 | Code Documentation | ❌ |
 | Production Build Scripts | ❌ |
 | Dockerize Application (v1.0.0) | ❌ |
