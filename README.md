@@ -97,7 +97,10 @@ npm run swagger-autogen
 ```
 
 ## Running Tests
-TODO: Implement unit testing
+In order to run unit tests, simply run the following script:
+```sh
+npm test
+```
 
 ## Work-in-progress
 This section describes features that are either work-in-progress or will be implemented in the future. Features are sorted by priority.
