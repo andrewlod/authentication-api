@@ -6,7 +6,12 @@ enum LogStrategies {
   FILE = 'FILE'
 }
 
-class Logger {
+/**
+ * Logger
+ * 
+ * Singleton wrapper for Winston logger, where a logging strategy can be chosen
+ */
+export class Logger {
   logger: winston.Logger
 
   constructor () {
