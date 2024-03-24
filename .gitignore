@@ -134,3 +134,6 @@ src/database/schemas/generated
 
 # Swagger files
 src/docs/swagger_output.json
+
+# TSDoc artifacts
+docs

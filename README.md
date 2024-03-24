@@ -96,6 +96,13 @@ In order to generate the Swagger documentation, run the following script before 
 npm run swagger-autogen
 ```
 
+This project also support JSDoc documentation, provided by [TypeDoc](https://typedoc.org). In order to generate TypeDoc documentation, run the following script:
+```sh
+npm run generate-docs
+```
+
+HTML documentation should be generated on the `docs/` folder.
+
 ## Running Tests
 In order to run unit tests, simply run the following script:
 ```sh
@@ -109,7 +116,6 @@ This section describes features that are either work-in-progress or will be impl
 
 | Feature | Status |
 |---------|--------|
-| Code Documentation | ❌ |
 | Production Build Scripts | ❌ |
 | Dockerize Application (v1.0.0) | ❌ |
 | Kubernetes Configuration | ❌ |

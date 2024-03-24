@@ -4,6 +4,12 @@ export type UserTokenType = Prisma.UserTokenGetPayload<Prisma.UserTokenDefaultAr
 export type UserTokenCreateInput = Prisma.UserTokenCreateInput
 export type UserTokenUpdateInput = Prisma.UserTokenUpdateInput
 
+/**
+ * DaoUserToken
+ * 
+ * Represents the Data Access Object that interacts with the UserToken model.
+ * The UserToken model tracks JWT expiry times
+ */
 export class DaoUserToken {
   userToken: Prisma.UserTokenDelegate
 

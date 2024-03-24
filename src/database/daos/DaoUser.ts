@@ -5,6 +5,12 @@ export type RegularUserCreateInput = Omit<Prisma.UserCreateInput, 'is_admin'>
 export type AnyUserCreateInput = Prisma.UserCreateInput
 export type UserUpdateInput = Prisma.UserUpdateInput
 
+/**
+ * DaoUser
+ * 
+ * Represents the Data Access Object that interacts with the User model.
+ * The User model represents a user that has been registered into the system
+ */
 export class DaoUser {
   user: Prisma.UserDelegate
 

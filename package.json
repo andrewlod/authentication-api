@@ -8,6 +8,7 @@
     "migrate": "npx prisma migrate dev --schema ./src/database/schemas/schema.prisma",
     "dev": "npx nodemon",
     "swagger-autogen": "ts-node src/docs/swagger.ts",
+    "generate-docs": "npx typedoc src/**/*.ts",
     "test": "jest"
   },
   "repository": {
@@ -47,6 +48,7 @@
     "prisma": "^5.10.2",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "typedoc": "^0.25.12",
     "typescript": "^5.3.3"
   },
   "dependencies": {
