@@ -69,13 +69,12 @@ SECRETS_CONNECTOR=AWS
 # If this is not a production environment, the next variable may be left as blank
 SECRETS_LIST=
 
-DATABASE_URL="mysql://<username>:<password>@localhost:3306/<schema_name>?schema=public"
-
 # Secrets
 PASSWORD_SALT=
 JWT_SECRET=
 JWT_EXPIRE_MINUTES=
 JWT_COOKIE_KEY=
+DATABASE_URL="mysql://<username>:<password>@localhost:3306/<schema_name>?schema=public"
 ```
 
 ## Build & Run
