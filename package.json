@@ -6,7 +6,10 @@
   "scripts": {
     "install-db": "npx prisma generate --schema ./src/database/schemas/schema.prisma",
     "migrate": "npx prisma migrate dev --schema ./src/database/schemas/schema.prisma",
-    "dev": "npx nodemon",
+    "start:dev": "npx nodemon",
+    "start:prod": "node build/server.js",
+    "build": "npm run install-db && tsc",
+    "postbuild": "cd src && copyfiles database/schemas/**/* ../build",
     "swagger-autogen": "ts-node src/docs/swagger.ts",
     "generate-docs": "npx typedoc src/**/*.ts",
     "test": "jest"
@@ -61,6 +64,7 @@
     "@types/swagger-ui-express": "^4.1.6",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
+    "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",

@@ -81,7 +81,7 @@ DATABASE_URL="mysql://<username>:<password>@localhost:3306/<schema_name>?schema=
 ### Development
 In order to run the application in your development environment, simply run the following command:
 ```sh
-npm run dev
+npm run start:dev
 ```
 
 Any file changes will automatically reload the application
@@ -115,7 +115,6 @@ This section describes features that are either work-in-progress or will be impl
 
 | Feature | Status |
 |---------|--------|
-| Production Build Scripts | ❌ |
 | Dockerize Application (v1.0.0) | ❌ |
 | Kubernetes Configuration | ❌ |
 | CI with GitHub Actions | ❌ |
