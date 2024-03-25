@@ -5,6 +5,10 @@ docs
 .env
 *.log
 .gitignore
+Dockerfile
 
 LICENSE
 README.md
+
+src/database/schemas/generated
+src/docs/swagger_output.json
