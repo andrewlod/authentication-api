@@ -5,7 +5,8 @@
   "main": "src/server.ts",
   "scripts": {
     "install-db": "npx prisma generate --schema ./src/database/schemas/schema.prisma",
-    "migrate": "npx prisma migrate dev --schema ./src/database/schemas/schema.prisma",
+    "migrate:dev": "npx prisma migrate dev --schema ./src/database/schemas/schema.prisma",
+    "migrate:prod": "npx prisma migrate deploy --schema ./build/database/schemas/schema.prisma",
     "start:dev": "npx nodemon",
     "start:prod": "node build/server.js",
     "build": "npm run install-db && tsc",

@@ -54,7 +54,7 @@ Then install all dependencies:
 cd authentication-api
 npm install
 npm run install-db
-npm run migrate
+npm run migrate:dev
 ```
 
 ### Environment
@@ -87,7 +87,12 @@ npm run start:dev
 Any file changes will automatically reload the application
 
 ### Production
-TODO: Write production instructions
+In order to build and run the application for production, run the following commands:
+```sh
+npm run build
+npm run postbuild
+npm run start:prod
+```
 
 ## Documentation
 In order to generate the Swagger documentation, run the following script before running the app:
