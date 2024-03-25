@@ -9,6 +9,7 @@
     "migrate:prod": "npx prisma migrate deploy --schema ./build/database/schemas/schema.prisma",
     "start:dev": "npx nodemon",
     "start:prod": "node build/server.js",
+    "start:migrate:prod": "npm run migrate:prod && npm run start:prod",
     "build": "npm run install-db && tsc",
     "postbuild": "cd src && copyfiles database/schemas/**/* ../build",
     "swagger-autogen": "ts-node src/docs/swagger.ts",

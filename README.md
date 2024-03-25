@@ -91,7 +91,7 @@ In order to build and run the application for production, run the following comm
 ```sh
 npm run build
 npm run postbuild
-npm run start:prod
+npm run start:migrate:prod
 ```
 
 ## Documentation
@@ -120,7 +120,7 @@ This section describes features that are either work-in-progress or will be impl
 
 | Feature | Status |
 |---------|--------|
-| Dockerize Application (v1.0.0) | ❌ |
+| Dockerize Application (v1.0.0) | 🚧 |
 | Kubernetes Configuration | ❌ |
 | CI with GitHub Actions | ❌ |
 | CI/CD with AWS CodeBuild/CodePipeline | ❌ |
