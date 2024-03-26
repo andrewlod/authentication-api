@@ -1,6 +1,6 @@
 {
   "name": "authentication-api",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Authentication REST API created with TypeScript",
   "main": "src/server.ts",
   "scripts": {
