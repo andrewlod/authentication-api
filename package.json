@@ -1,6 +1,6 @@
 {
   "name": "authentication-api",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Authentication REST API created with TypeScript",
   "main": "src/server.ts",
   "scripts": {
@@ -52,9 +52,7 @@
     "nodemon": "^3.1.0",
     "prisma": "^5.10.2",
     "ts-jest": "^29.1.2",
-    "ts-node": "^10.9.2",
-    "typedoc": "^0.25.12",
-    "typescript": "^5.3.3"
+    "typedoc": "^0.25.12"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.523.0",
@@ -77,6 +75,8 @@
     "supertest": "^6.3.4",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3",
     "winston": "^3.11.0"
   }
 }
