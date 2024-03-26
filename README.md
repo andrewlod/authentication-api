@@ -54,7 +54,7 @@ Then install all dependencies:
 cd authentication-api
 npm install
 npm run install-db
-npm run migrate
+npm run migrate:dev
 ```
 
 ### Environment
@@ -69,26 +69,30 @@ SECRETS_CONNECTOR=AWS
 # If this is not a production environment, the next variable may be left as blank
 SECRETS_LIST=
 
-DATABASE_URL="mysql://<username>:<password>@localhost:3306/<schema_name>?schema=public"
-
 # Secrets
 PASSWORD_SALT=
 JWT_SECRET=
 JWT_EXPIRE_MINUTES=
 JWT_COOKIE_KEY=
+DATABASE_URL="mysql://<username>:<password>@localhost:3306/<schema_name>?schema=public"
 ```
 
 ## Build & Run
 ### Development
 In order to run the application in your development environment, simply run the following command:
 ```sh
-npm run dev
+npm run start:dev
 ```
 
 Any file changes will automatically reload the application
 
 ### Production
-TODO: Write production instructions
+In order to build and run the application for production, run the following commands:
+```sh
+npm run build
+npm run postbuild
+npm run start:migrate:prod
+```
 
 ## Documentation
 In order to generate the Swagger documentation, run the following script before running the app:
@@ -116,8 +120,7 @@ This section describes features that are either work-in-progress or will be impl
 
 | Feature | Status |
 |---------|--------|
-| Production Build Scripts | ❌ |
-| Dockerize Application (v1.0.0) | ❌ |
+| Dockerize Application (v1.0.0) | 🚧 |
 | Kubernetes Configuration | ❌ |
 | CI with GitHub Actions | ❌ |
 | CI/CD with AWS CodeBuild/CodePipeline | ❌ |
